@@ -1,4 +1,4 @@
-##🧠 Brain Tumor Detection & Medicine Suggestion System
+🧠 Brain Tumor Detection & Medicine Suggestion System
 
 A Machine Learning + Flask Web Application
 
