@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brain Tumor Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Detecting and Diagnosing Brain Tumors</h1>
+        <form id="uploadForm" action="/predict" method="post" enctype="multipart/form-data">
+            <input type="file" name="image" id="imageInput" accept="image/*" required>
+            <button type="submit">Predict Tumor</button>
+        </form>
+        <img id="preview">
+        <div id="status"></div>
+        <div id="result"></div>
+		<div id="logot"><a href="/logout">Logout</a></div>
+    </div>
+
+    <script>
+        document.getElementById('imageInput').addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const preview = document.getElementById('preview');
+            preview.src = e.target.result;
+            preview.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+    }
+});
+
+document.getElementById('uploadForm').onsubmit = async function(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    const formData = new FormData(this);
+
+    // Get location and append it to the formData
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            async (position) => {
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
+
+                // Append latitude and longitude to the formData
+                formData.append('latitude', lat);
+                formData.append('longitude', lon);
+
+                showMessage("Uploading... Please wait.");
+
+                try {
+                    const response = await fetch('/predict', {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Failed to process the image');
+                    }
+
+                    const data = await response.json();
+                    document.getElementById('result').innerHTML = `
+                        <p><b>Prediction:</b> ${data.prediction}</p>
+                        <p><b>Medicine:</b> ${data.medicine}</p>
+                        <p><b>Tumor Size:</b> ${data.tumor_size}</p>
+                    `;
+                    showMessage("Prediction successful!");
+                } catch (error) {
+                    showMessage("Error: " + error.message);
+                }
+            },
+            (error) => {
+                console.error('Error fetching location:', error);
+                showMessage("Unable to get location. Please enable location services and try again.");
+            }
+        );
+    } else {
+        alert("Geolocation is not supported by this browser.");
+        showMessage("Geolocation is not supported by this browser.");
+    }
+};
+
+function showMessage(message) {
+    document.getElementById('status').innerText = message;
+}
+
+	</script>
+
+</body>
+</html>
