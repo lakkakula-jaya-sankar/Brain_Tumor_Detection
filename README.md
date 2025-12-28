@@ -1,24 +1,24 @@
-🧠 Brain Tumor Detection & Medicine Suggestion System
+## 🧠 Brain Tumor Detection & Medicine Suggestion System
 
 A Machine Learning + Flask Web Application
 
 This project is an end-to-end Brain Tumor Detection System that analyzes MRI brain scans using a CNN deep learning model, detects tumors, estimates approximate tumor size, suggests medicine, and even locates the nearest hospital using geolocation and the OpenStreetMap API.
 It also includes User Authentication (Login/Register) and Email Notifications for prediction results.
 
-🚀 Features
-🧑‍⚕️ 1. Brain Tumor Classification
+## 🚀 Features
+### 🧑‍⚕️ 1. Brain Tumor Classification
 
 Uses Convolutional Neural Network (CNN) to classify MRI scans as:
 ✔️ No Tumor Detected
 ✔️ Tumor Detected
 
-📏 2. Tumor Size Estimation
+### 📏 2. Tumor Size Estimation
 
 Uses contour extraction and pixel-to-cm calculation.
 
 Displays approximate tumor size in cm.
 
-💊 3. Medicine Suggestion System
+### 💊 3. Medicine Suggestion System
 
 Depending on tumor severity:
 
@@ -27,7 +27,7 @@ Tumor Size	Suggested Medicine
 3–4.5 cm	Dexamethasone
 4.5–5.5 cm	Temozolomide
 > 5.5 cm	Go to Hospital
-🏥 4. Nearest Hospital Locator
+### 🏥 4. Nearest Hospital Locator
 
 Uses OpenStreetMap Overpass API
 
@@ -35,7 +35,7 @@ Gets user latitude + longitude
 
 Returns nearest hospital name & location.
 
-📩 5. Email Notification
+### 📩 5. Email Notification
 
 After prediction, user receives mail containing:
 
@@ -45,7 +45,7 @@ Tumor Size
 
 Medicine / Hospital details
 
-🔐 6. User Authentication
+### 🔐 6. User Authentication
 
 Register
 
@@ -55,7 +55,7 @@ Secure Password Hashing
 
 Session Handling
 
-🛠️ Tech Stack
+## 🛠️ Tech Stack
 Backend
 
 Python
@@ -92,7 +92,7 @@ CSS
 
 JavaScript
 
-📁 Project Structure
+## 📁 Project Structure
 project/
 │
 ├── app.py
